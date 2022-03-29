@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- shosho.buku tree view -->
+    <record id="shosho_buku_view_tree" model="ir.ui.view">
+        <field name="name">Jenis Buku</field>
+        <field name="model">shosho.buku</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add your fields here -->
+                <field name="name"/>
+                <field name="judul"/>
+                <field name="penulis"/>
+                <field name="penerbit"/>
+                <field name="tahun"/>
+                <field name="jenis_buku"/>
+                <field name="stok"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- shosho.buku form view -->
+    <record id="shosho_buku_view_form" model="ir.ui.view">
+        <field name="name">Form Penambahan Buku</field>
+        <field name="model">shosho.buku</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <!-- Add your fields here -->
+                        <field name="name"/>
+                        <field name="judul"/>
+                        <field name="penulis"/>
+                        <field name="penerbit"/>
+                        <field name="tahun"/>
+                        <field name="jenis_buku"/>
+                        <field name="stok"/>
+                    </group>
+                    <notebook>
+                        <page string="DESKRIPSI BUKU">
+                            <field name="deskripsi"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- shosho.buku action window -->
+    <record id="shosho_buku_action" model="ir.actions.act_window">
+        <field name="name">Daftar Buku</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shosho.buku</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem
+        id="shosho_buku_menu_act"
+        name="Daftar Buku"
+        parent="shosho_buku_menu_categ"
+        action="shosho_buku_action"
+        sequence="10"/>
+
+</odoo>
