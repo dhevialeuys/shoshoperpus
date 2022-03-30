@@ -32,6 +32,7 @@
         'views/buku_view.xml',
         'views/peminjaman_view.xml',
         'views/pengembalian_view.xml',
+        'views/peminjam_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

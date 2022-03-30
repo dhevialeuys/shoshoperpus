@@ -8,8 +8,8 @@
         <field name="arch" type="xml">
             <tree>
                 <!-- Add your fields here -->
+                <field name="kode"/>
                 <field name="name"/>
-                <field name="judul"/>
                 <field name="penulis"/>
                 <field name="penerbit"/>
                 <field name="tahun"/>
@@ -28,8 +28,8 @@
                 <sheet>
                     <group>
                         <!-- Add your fields here -->
+                        <field name="kode"/>
                         <field name="name"/>
-                        <field name="judul"/>
                         <field name="penulis"/>
                         <field name="penerbit"/>
                         <field name="tahun"/>

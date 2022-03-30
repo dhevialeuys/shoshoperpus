@@ -7,22 +7,38 @@ class PeminjamanBuku(models.Model):
     _name = 'shosho.peminjaman'
     _description = 'New Description'
 
-    name = fields.Char(string='Nama Peminjam')
-    id_buku = fields.Many2one('shosho.buku', string='ID Buku')
-    id_pinjam = fields.Char(string='ID Peminjam', required=True)
+    name = fields.Char(string='ID Peminjam', required=True)
+    peminjamanbukudetail_ids = fields.One2many(
+        comodel_name='shosho.peminjamanbukudetail',
+        inverse_name='id_pinjam',
+        string='Detail Peminjaman Buku')
+
+
+    
+    peminjam = fields.Many2one(
+        comodel_name='res.partner',
+        string='Peminjam',
+        domain=[('peminjamnya', '=', True)], store=True)
+    
     tanggal_pinjam = fields.Datetime('Tanggal Peminjaman', default = fields.Datetime.now)
     tanggal_kembali = fields.Date(string='Tanggal Pengembalian', default = fields.Date.today())
-    judulbuku = fields.Char(compute='_compute_judulbuku', string='Judul Buku')
     
-    @api.depends('id_buku')
-    def _compute_judulbuku(self):
-        for record in self:
-            record.judulbuku = record.id_buku.judul
-
     sudah_kembali = fields.Boolean(string='Sudah Dikembalikan', default=False)
     def buku_kembali(self):
         pass
-    
+
+class PeminjamanBukuDetail(models.Model):
+    _name = 'shosho.peminjamanbukudetail'
+    _description = 'New Description'
+
+    id_pinjam = fields.Many2one(comodel_name='shosho.peminjaman', string='Pinjam')
+    buku_id = fields.Many2one(
+        comodel_name='shosho.buku',
+        string='ID Buku',
+        domain=[('stok', '<', '20')])
+    name = fields.Char(string='Name')
+
+
     qty = fields.Integer(string='Jumlah')
 
     @api.constrains('qty')
@@ -34,7 +50,7 @@ class PeminjamanBuku(models.Model):
     
     @api.model
     def create(self, vals):
-        record = super(PeminjamanBuku, self).create(vals)
+        record = super(PeminjamanBukuDetail, self).create(vals)
         if record.qty:
-            self.env['shosho.buku'].search([('id', '=', record.id_buku.id)]).write({'stok':record.id_buku.stok-record.qty})
+            self.env['shosho.buku'].search([('id', '=', record.buku_id.id)]).write({'stok':record.buku_id.stok-record.qty})
             return record

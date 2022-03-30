@@ -5,8 +5,8 @@ class Buku(models.Model):
     _name = 'shosho.buku'
     _description = 'Daftar Buku yang Tersedia'
 
-    name = fields.Char(string='Kode Buku', required=True)
-    judul = fields.Char(string='Judul Buku')
+    kode = fields.Char(string='Kode Buku', required=True)
+    name = fields.Char(string='Judul Buku')
     penulis = fields.Char(string='Penulis Buku')
     penerbit = fields.Char(string='Penerbit Buku')
     tahun = fields.Char(string='Tahun Terbit')

@@ -1,3 +1,4 @@
+from email.policy import default
 from odoo import api, fields, models
 
 
@@ -6,12 +7,12 @@ class Pengembalian(models.Model):
     _description = 'Pengembalian Buku yang Telah Dipinjam'
 
     name = fields.Char(compute='_compute_nama_peminjam', string='Nama Peminjam')
-    id_buku = fields.Many2one('shosho.buku', string='ID Buku')
+    id_buku = fields.Many2one(comodel_name='shosho.buku', string='ID Buku')
     
-    @api.depends('name')
+    @api.depends('id_buku')
     def _compute_nama_peminjam(self):
         for record in self:
-            record.name = self.env['shosho.buku'].search([('id', '=', record.name.id)]).name
+            record.name = self.env['shosho.peminjaman'].search([('id', '=', record.id_buku.id)]).mapped('peminjam').name
 
     tgl_pengembalian = fields.Date(string='', default=fields.Date.today())
     

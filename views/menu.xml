@@ -20,4 +20,10 @@
         name="Transaksi"
         parent="shosho_menu_root"
         sequence="20"/>
+    
+    <menuitem
+        id="shosho_partner_menu_categ"
+        name="Partner"
+        parent="shosho_menu_root"
+        sequence="30"/>
 </odoo>
