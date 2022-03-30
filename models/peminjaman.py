@@ -7,21 +7,18 @@ class PeminjamanBuku(models.Model):
     _name = 'shosho.peminjaman'
     _description = 'New Description'
 
-    name = fields.Char(string='ID Peminjam', required=True)
     peminjamanbukudetail_ids = fields.One2many(
         comodel_name='shosho.peminjamanbukudetail',
         inverse_name='id_pinjam',
         string='Detail Peminjaman Buku')
 
-
-    
+    name = fields.Char(string='ID Peminjam', required=True)
+    tanggal_pinjam = fields.Datetime('Tanggal Peminjaman', default = fields.Datetime.now)
+    tanggal_kembali = fields.Date(string='Tanggal Pengembalian', default = fields.Date.today())
     peminjam = fields.Many2one(
         comodel_name='res.partner',
         string='Peminjam',
         domain=[('peminjamnya', '=', True)], store=True)
-    
-    tanggal_pinjam = fields.Datetime('Tanggal Peminjaman', default = fields.Datetime.now)
-    tanggal_kembali = fields.Date(string='Tanggal Pengembalian', default = fields.Date.today())
     
     sudah_kembali = fields.Boolean(string='Sudah Dikembalikan', default=False)
     def buku_kembali(self):
@@ -34,10 +31,9 @@ class PeminjamanBukuDetail(models.Model):
     id_pinjam = fields.Many2one(comodel_name='shosho.peminjaman', string='Pinjam')
     buku_id = fields.Many2one(
         comodel_name='shosho.buku',
-        string='ID Buku',
+        string='Judul Buku',
         domain=[('stok', '<', '20')])
     name = fields.Char(string='Name')
-
 
     qty = fields.Integer(string='Jumlah')
 
