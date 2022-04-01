@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <tree>
                 <!-- Add your fields here -->
-                <field name="id_buku"/>
+                <field name="id_pinjam"/>
                 <field name="name"/>
                 <field name="tgl_pengembalian"/>
             </tree>
@@ -24,7 +24,7 @@
                 <sheet>
                     <group>
                         <!-- Add your fields here -->
-                        <field name="id_buku"/>
+                        <field name="id_pinjam"/>
                         <field name="name"/>
                     </group>
                     <group>

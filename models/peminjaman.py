@@ -37,12 +37,12 @@ class PeminjamanBukuDetail(models.Model):
 
     qty = fields.Integer(string='Jumlah')
 
-    @api.constrains('qty')
-    def _check_stok(self):
+    @api.onchange('qty')
+    def onchange_qty(self):
         for record in self:
-            kertas = self.env['shosho.buku'].search([('stok', '<', record.qty), ('id', '=', record.id)])
-            if kertas:
-                raise ValidationError("Stok buku habis")
+            if record.qty > record.buku_id.stok:
+                raise ValidationError("Stok Buku Tidak Mencukupi")
+    
     
     @api.model
     def create(self, vals):
